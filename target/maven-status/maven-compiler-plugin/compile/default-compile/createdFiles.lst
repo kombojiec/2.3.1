@@ -1,0 +1,10 @@
+app\configuration\RootConfig.class
+app\service\UserService.class
+app\configuration\WebAppInitializer.class
+app\configuration\WebConfig.class
+app\dao\UserDaoImpl.class
+app\entity\User.class
+app\controller\MainController.class
+app\dao\UserDao.class
+app\service\UserServiceImpl.class
+app\controller\UserController.class

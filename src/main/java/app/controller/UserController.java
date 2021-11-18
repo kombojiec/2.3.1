@@ -19,8 +19,6 @@ public class UserController {
     @GetMapping("")
     public String getUsers(Model model) {
         model.addAttribute("users", service.getUsers());
-        model.addAttribute("tmp", 123);
-        System.out.println(model.getAttribute("users"));
         return "user";
     }
 
@@ -31,13 +29,13 @@ public class UserController {
     }
 
     @GetMapping("/delete")
-    public String deleteUser(@RequestParam("userId") int id) {
+    public String deleteUser(@RequestParam("id") int id) {
         service.deleteUser(id);
         return "redirect:/user";
     }
 
     @GetMapping("/update")
-    public String updateUser(@RequestParam("userId") int id, Model model) {
+    public String updateUser(@RequestParam("id") int id, Model model) {
         model.addAttribute("user", service.getUserById(id));
         return "user-form";
     }

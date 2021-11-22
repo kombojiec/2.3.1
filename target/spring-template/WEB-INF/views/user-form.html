@@ -10,13 +10,14 @@
 </head>
 <body>
 
-  <form action="#" class="form" th:action = "@{admin/save}" method="post" th:object="${user}">
+  <form action="#" class="form" th:action = "@{/admin/save}" method="post" th:object="${user}">
+      <input type="hidden" th:field="*{id}">
     <label for="" class="form__label">
       Input username:
       <input cssClass="form__input" th:field="*{name}" />
     </label>
     <label for="" class="form__label">
-      Input username:
+      Input password:
       <input cssClass="form__input" th:field="*{password}" />
     </label>
     <label for="" class="form__label">

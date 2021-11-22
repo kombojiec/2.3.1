@@ -1,7 +1,9 @@
 package app.dao;
 
+import app.entity.Role;
 import app.entity.User;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface UserDao {
@@ -10,6 +12,6 @@ public interface UserDao {
     void addUser(User user);
     void deleteUser(int id);
     void updateUser(User user);
-
     User getUserByName(String name);
+    Collection<Role> getUsersRolesById(int id);
 }

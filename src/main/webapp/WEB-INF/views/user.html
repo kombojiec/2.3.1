@@ -19,12 +19,12 @@
       <th>Roles</th>
     </tr>
     <tr>
-      <td>${user.id}</td>
-      <td>${user.username}</td>
-      <td>${user.email}</td>
+      <td th:text="${user.id}" />
+      <td th:text="${user.name}" />
+      <td th:text="${user.email}" />
       <td>
-        <ul th:each="role: ${user.roles}">
-          <li>${role}</li>
+        <ul th:each="role: ${roles}">
+          <li th:text="${role}" />
         </ul>
       </td>
     </tr>

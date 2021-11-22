@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -18,10 +19,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-//@Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     protected Log logger = (Log) LogFactory.getLog(this.getClass());
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
+    public LoginSuccessHandler() {
+        super();
+    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
@@ -65,6 +69,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         if(session == null) {
             return;
         }
+        session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
     }
 
 }

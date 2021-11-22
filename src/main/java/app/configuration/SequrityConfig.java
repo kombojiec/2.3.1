@@ -20,12 +20,15 @@ import org.springframework.stereotype.Component;
 public class SequrityConfig extends WebSecurityConfigurerAdapter {
 
     UserService userService;
-//    LoginSuccessHandler loginSuccessHandler;
+//    AuthenticationSuccessHandler successLoginHandler;
+//
+//    public SequrityConfig(AuthenticationSuccessHandler successLoginHandler) {
+//        this.successLoginHandler = successLoginHandler;
+//    }
 
     @Autowired
     public void setUserService( UserService userService) {
         this.userService = userService;
-//        this.loginSuccessHandler = loginSuccessHandler;
     }
 
 //    @Override
@@ -51,7 +54,7 @@ public class SequrityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
 //                .defaultSuccessUrl("/admin")
-                .successHandler(successLoginHandler())
+                .successHandler(new LoginSuccessHandler())
                 .permitAll();
 
         http.logout()
@@ -62,8 +65,8 @@ public class SequrityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/login").anonymous()
-                .antMatchers("/admin/**").authenticated();
-//                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN");
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN");
     }
 
     @Bean

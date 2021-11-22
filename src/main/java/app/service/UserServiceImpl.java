@@ -60,6 +60,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Collection<Role> getUsersRolesById(int id) {
+        return userDao.getUsersRolesById(id);
+    }
+
+    @Override
     @Transactional
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = getUserByName(s);

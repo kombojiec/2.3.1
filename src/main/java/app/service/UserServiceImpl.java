@@ -1,14 +1,22 @@
 package app.service;
 
 import app.dao.UserDao;
+import app.entity.Role;
 import app.entity.User;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     public UserServiceImpl(UserDao userDao) {
@@ -43,5 +51,25 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public void updateUser(User user) {
         userDao.updateUser(user);
+    }
+
+    @Override
+    @Transactional
+    public User getUserByName(String name) {
+        return userDao.getUserByName(name);
+    }
+
+    @Override
+    @Transactional
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        User user = getUserByName(s);
+        if(user == null) {
+            throw new UsernameNotFoundException(String.format("User '%s' not found", s));
+        }
+        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+    }
+
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+        return roles.stream().map(item -> new SimpleGrantedAuthority(item.getRole())).collect(Collectors.toList());
     }
 }

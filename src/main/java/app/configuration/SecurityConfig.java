@@ -13,11 +13,10 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.stereotype.Component;
 
 @EnableWebSecurity
 @Configuration
-public class SequrityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     UserService userService;
 
@@ -25,11 +24,6 @@ public class SequrityConfig extends WebSecurityConfigurerAdapter {
     public void setUserService( UserService userService) {
         this.userService = userService;
     }
-
-//    @Override
-//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().withUser("ADMIN").password("ADMIN").roles("ADMIN");
-//    }
 
     @Bean
     public AuthenticationSuccessHandler successLoginHandler() {
@@ -48,7 +42,6 @@ public class SequrityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/perform-login")
                 .usernameParameter("username")
                 .passwordParameter("password")
-//                .defaultSuccessUrl("/admin")
                 .successHandler(new LoginSuccessHandler())
                 .permitAll();
 

@@ -1,16 +1,12 @@
 package app.dao;
 
-import app.entity.Role;
 import app.entity.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @Repository
 public class UserDaoImpl implements UserDao{
@@ -29,7 +25,6 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void addUser(User user) {
-//        user.setRoles(em.createQuery("SELECT role FROM Role role where role.role = 'ROLE_USER'").getResultList());
         em.persist(user);
     }
 
@@ -42,10 +37,6 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void updateUser(User user) {
-//        Query query = em.createQuery("SELECT u FROM User u where u.id = :id");
-//        query.setParameter("id", user.getId());
-//        User baseUser = (User)query.getSingleResult();
-//        user.setRoles(baseUser.getRoles());
         em.merge(user);
     }
 

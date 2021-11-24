@@ -63,3 +63,13 @@ margin: auto;
 .form__input{
     width: 100%;
 }
+
+.button__logout{
+    font-size: 16px;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    display: inline-block;
+    border: 1px solid white;
+    padding: 5px;
+}

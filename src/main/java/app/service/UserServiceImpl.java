@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,11 +58,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User getUserByName(String name) {
         return userDao.getUserByName(name);
-    }
-
-    @Override
-    public Collection<Role> getUsersRolesById(int id) {
-        return userDao.getUsersRolesById(id);
     }
 
     @Override

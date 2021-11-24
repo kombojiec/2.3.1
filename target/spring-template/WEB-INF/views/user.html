@@ -1,10 +1,12 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/resources/css/main.css">
     <title>Document</title>
 </head>
 <body>
@@ -23,13 +25,17 @@
       <td th:text="${user.name}" />
       <td th:text="${user.email}" />
       <td>
-        <ul th:each="role: ${roles}">
+        <ul th:each="role: ${user.roles}">
           <li th:text="${role}" />
         </ul>
       </td>
     </tr>
-
   </table>
+
+
+  <div class="button__logout">
+    <a href="/logout">LogOut</a>
+  </div>
 
 </body>
 </html>

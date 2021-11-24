@@ -18,12 +18,19 @@
     </label>
     <label for="" class="form__label">
       Input password:
-      <input cssClass="form__input" th:field="*{password}" />
+      <input cssClass="form__input" th:field="*{password}" type="password"/>
     </label>
     <label for="" class="form__label">
       Input user email:
       <input cssClass="form__input" th:field="*{email}" />
     </label>
+
+      <ul>
+          <li th:each="role : ${allRoles}">
+              <input th:id="${role.role}" type="checkbox" th:field="*{roles}" th:value="${role}" />
+              <label th:for="${role.role}" th:text="${role}" />
+          </li>
+      </ul>
     <button>Save</button>
   </form>
 

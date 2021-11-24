@@ -10,31 +10,36 @@
 </head>
 <body>
 
-<h1 class="header">Users List</h1>
+    <h1 class="header">Users List</h1>
 
-<div class="table__wrapper">
-    <table class="table">
-        <tr class="table__raw">
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>operations</th>
-        </tr>
+    <div class="table__wrapper">
+        <table class="table">
+            <tr class="table__raw">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>operations</th>
+            </tr>
 
-        <tr th:each="user: ${users}">
-            <td th:text="${user.getId()}" />
-            <td th:text="${user.name}" />
-            <td th:text="${user.email}" />
-            <td class="table__links">
-                <a class="table__link table__link_update" th:href="@{/admin/update(id=${user.id})}">Update</a>
-                <a class="table__link table__link_delete" th:href="@{/admin/delete(id=${user.id})}">Delete</a>
-            </td>
-        </tr>
-    </table>
-    <button type="button" class="table__button">
-        <a href="/admin/create" class="table__button-link">Add user</a>
-    </button>
-</div>
+            <tr th:each="user: ${users}">
+                <td th:text="${user.getId()}" />
+                <td th:text="${user.name}" />
+                <td th:text="${user.email}" />
+                <td class="table__links">
+                    <a class="table__link table__link_update" th:href="@{/admin/update(id=${user.id})}">Update</a>
+                    <a class="table__link table__link_delete" th:href="@{/admin/delete(id=${user.id})}">Delete</a>
+                </td>
+            </tr>
+        </table>
+        <button type="button" class="table__button">
+            <a href="/admin/create" class="table__button-link">Add user</a>
+        </button>
+    </div>
+
+    <div class="button__logout">
+        <a href="/user/">Profile</a>
+        <a href="/logout">LogOut</a>
+    </div>
 
 </body>
 </html>

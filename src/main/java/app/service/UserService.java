@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public interface UserService extends UserDetailsService {
     List<User> getUsers();
@@ -14,5 +15,4 @@ public interface UserService extends UserDetailsService {
     void deleteUser(int id);
     void updateUser(User user);
     User getUserByName(String name);
-    Collection<Role> getUsersRolesById(int id);
 }

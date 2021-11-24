@@ -20,11 +20,6 @@ import org.springframework.stereotype.Component;
 public class SequrityConfig extends WebSecurityConfigurerAdapter {
 
     UserService userService;
-//    AuthenticationSuccessHandler successLoginHandler;
-//
-//    public SequrityConfig(AuthenticationSuccessHandler successLoginHandler) {
-//        this.successLoginHandler = successLoginHandler;
-//    }
 
     @Autowired
     public void setUserService( UserService userService) {

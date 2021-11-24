@@ -5,6 +5,7 @@ import app.entity.User;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public interface UserDao {
     List<User> getUsers();
@@ -13,5 +14,4 @@ public interface UserDao {
     void deleteUser(int id);
     void updateUser(User user);
     User getUserByName(String name);
-    Collection<Role> getUsersRolesById(int id);
 }

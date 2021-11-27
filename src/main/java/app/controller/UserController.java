@@ -1,6 +1,8 @@
 package app.controller;
 
+import app.entity.Role;
 import app.entity.User;
+import app.service.RoleService;
 import app.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,14 +11,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Set;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
     private UserService userservice;
+    private RoleService roleService;
+    private Set<Role> roles;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, RoleService roleService) {
         this.userservice = userService;
+        this.roleService = roleService;
+        roles = roleService.getRoles();
     }
 
     @GetMapping("")
@@ -24,6 +32,8 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userservice.getUserByName(auth.getName());
         model.addAttribute("user", user);
+        Role admin = roles.stream().filter(el -> el.getRole().equals("ROLE_ADMIN")).findFirst().get();
+        model.addAttribute("admin", admin);
         return "user";
     }
 }

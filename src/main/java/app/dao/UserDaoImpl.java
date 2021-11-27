@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserDaoImpl implements UserDao{
@@ -14,18 +16,16 @@ public class UserDaoImpl implements UserDao{
     private EntityManager em;
 
     @Override
-    public List<User> getUsers() {
-        return em.createQuery("select u from User u", User.class).getResultList();
+    public Set<User> getUsers() {
+        List<User> list = em.createQuery("select u from User u JOIN FETCH u.roles", User.class).getResultList();
+        return list.stream().collect(Collectors.toSet());
     }
 
     @Override
     public User getUserById(int id) {
-        return em.find(User.class, id);
-    }
-
-    @Override
-    public void addUser(User user) {
-        em.persist(user);
+        return (User) em.createQuery("SELECT u FROM User u JOIN FETCH u.roles where u.id = :id")
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     @Override
@@ -36,14 +36,14 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public void updateUser(User user) {
-        em.merge(user);
+    public User getUserByName(String name) {
+        TypedQuery<User> query =  em.createQuery("select u from User u JOIN FETCH u.roles where  u.username = :name", User.class);
+        query.setParameter("name", name);
+        return query.getSingleResult();
     }
 
     @Override
-    public User getUserByName(String name) {
-        TypedQuery<User> query =  em.createQuery("select u from User u where u.username = :name", User.class);
-        query.setParameter("name", name);
-        return query.getSingleResult();
+    public void saveUser(User user) {
+        em.merge(user);
     }
 }

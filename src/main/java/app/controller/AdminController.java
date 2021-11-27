@@ -8,8 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -18,7 +19,7 @@ public class AdminController {
 
     private UserService userService;
     private RoleService roleService;
-    private List<Role> roles;
+    private Set<Role> roles;
 
     public AdminController(UserService userService, RoleService roleService) {
         this.roleService = roleService;
@@ -47,30 +48,21 @@ public class AdminController {
 
     @GetMapping("/update")
     public String updateUser(@RequestParam("id") int id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
+//        model.addAttribute("user", userService.getUserById(id));
+        User user = userService.getUserById(id);
+        model.addAttribute("user", user);
         model.addAttribute("roles", roles);
         return "user-form";
     }
 
     @PostMapping("/save")
     public String saveUser(@ModelAttribute("user") User user,
-                           @RequestParam(name = "ROLE_USER", required = false) String ROLE_USER,
-                           @RequestParam(name = "ROLE_ADMIN", required = false) String ROLE_ADMIN) {
-        List<Role> roles = new ArrayList<>();
-        for(Role role: this.roles) {
-            if(role.getRole().equals(ROLE_USER)) {
-                roles.add(role);
-            }
-            if(role.getRole().equals(ROLE_ADMIN)) {
-                roles.add(role);
-            }
-        }
-        user.setRoles(roles);
-        if(user.getId() > 0) {
-            userService.updateUser(user);
-        } else {
-            userService.addUser(user);
-        }
+                           @RequestParam(value = "params") String[] params) {
+        Set<Role> rolesSet = Arrays.stream(params)
+                .map(item -> roles.stream().filter(el -> el.getRole().equals(item)).findFirst().get())
+                        .collect(Collectors.toSet());
+        user.setRoles(rolesSet);
+        userService.saveUser(user);
         return "redirect:/admin";
     }
 }

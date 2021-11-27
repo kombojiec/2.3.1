@@ -11,15 +11,18 @@
 <body>
 
   <form action="#" class="form" th:action = "@{/admin/save}" method="post" th:object="${user}">
-      <input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{id}">
+
     <label for="" class="form__label">
       Input username:
       <input cssClass="form__input" th:field="*{name}" />
     </label>
+
     <label for="" class="form__label">
       Input password:
-      <input cssClass="form__input" th:field="*{password}" type="password"/>
+      <input cssClass="form__input" th:field="*{password}" />
     </label>
+
     <label for="" class="form__label">
       Input user email:
       <input cssClass="form__input" th:field="*{email}" />
@@ -27,10 +30,11 @@
 
       <ul>
           <li th:each="role : ${roles}">
-              <input th:id="${role.role}" type="checkbox" th:value="${role}" th:name="${role.role}"/>
+              <input th:id="${role.role}" type="checkbox" th:value="${role}" th:name="params"  th:checked="${user.roles.contains(role)}" />
               <label th:for="${role.role}" th:text="${role}" />
           </li>
       </ul>
+
     <button>Save</button>
   </form>
 

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return userDao.getUsers();
     }
 
@@ -34,11 +34,11 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserById(id);
     }
 
-    @Override
-    @Transactional
-    public void addUser(User user) {
-        userDao.addUser(user);
-    }
+//    @Override
+//    @Transactional
+//    public void addUser(User user) {
+//        userDao.addUser(user);
+//    }
 
     @Override
     @Transactional
@@ -46,11 +46,11 @@ public class UserServiceImpl implements UserService {
         userDao.deleteUser(id);
     }
 
-    @Override
-    @Transactional
-    public void updateUser(User user) {
-        userDao.updateUser(user);
-    }
+//    @Override
+//    @Transactional
+//    public void updateUser(User user) {
+//        userDao.updateUser(user);
+//    }
 
     @Override
     @Transactional
@@ -60,12 +60,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    public void saveUser(User user) {
+        userDao.saveUser(user);
+    }
+
+    @Override
+    @Transactional
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = getUserByName(s);
         if(user == null) {
             throw new UsernameNotFoundException(String.format("User '%s' not found", s));
         }
-        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+        return user;
+//        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {

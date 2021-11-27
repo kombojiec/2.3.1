@@ -5,7 +5,7 @@ import app.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Set;
 
 @Service
 public class RoleServiceImpl implements RoleService{
@@ -13,7 +13,7 @@ public class RoleServiceImpl implements RoleService{
     private RoleDao roleDao;
 
     @Override
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roleDao.getRoles();
     }
 }

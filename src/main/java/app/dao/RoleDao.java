@@ -2,8 +2,8 @@ package app.dao;
 
 import app.entity.Role;
 
-import java.util.List;
+import java.util.Set;
 
 public interface RoleDao {
-    List<Role> getRoles();
+    Set<Role> getRoles();
 }

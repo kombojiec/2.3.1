@@ -23,12 +23,12 @@ import java.util.Properties;
 @PropertySource("classpath:database.properties")
 @ComponentScan(basePackages = "app")
 @EnableTransactionManagement
-public class RootConfig implements WebMvcConfigurer {
+public class JpaConfig implements WebMvcConfigurer {
 
     private Environment env;
 
     @Autowired
-    public RootConfig(Environment env) {
+    public JpaConfig(Environment env) {
         this.env = env;
     }
 

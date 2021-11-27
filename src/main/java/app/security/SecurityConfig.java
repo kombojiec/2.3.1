@@ -1,10 +1,9 @@
-package app.configuration;
+package app.security;
 
-import app.configuration.handler.LoginSuccessHandler;
+import app.security.handler.LoginSuccessHandler;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,7 +14,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
-@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     UserService userService;

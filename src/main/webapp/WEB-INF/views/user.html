@@ -34,6 +34,7 @@
 
 
   <div class="button__logout">
+    <a th:if="${user.roles.contains(admin)}" href="/admin/" >Admin</a>
     <a href="/logout">LogOut</a>
   </div>
 
